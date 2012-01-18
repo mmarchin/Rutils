@@ -7,7 +7,7 @@ exp <- read.csv("H:/introR/data/mouse_ge/geneatlas_MOE430.csv",as.is=T)
 names <- read.table("H:/introR/data/mouse_ge/moe4302.txt",as.is=T,header=T,sep="\t")
 
 #My own image plot function, give it the data matrix, colors, title, fixed limits, add a white grid or not, adjust text sizes...
-mcm_image<-function(data,colors,title="",zlim=c(floor(min(data,na.rm=T)),ceiling(max(data,na.rm=T))),addgrid=F,cexCol=.8,cexRow=.1,...)
+mcm_image<-function(data,colors,title="",zlim=c(floor(min(data,na.rm=T)),ceiling(max(data,na.rm=T))),addgrid=F,cexCol=.8,cexRow=.2,...)
 {
 	library(RColorBrewer)
 	par(mar=c(7,2,4,7))
@@ -50,31 +50,16 @@ names[,2]<-gsub(pattern=" /// .*",replacement=" ...",names[,2])
 #setting the rownames to be probeset_id (gene_name)
 rownames(selected)<-paste(exp[,1],"(",names[match(names[,1],exp[,1]),2],")")
 
+#heatmap of the top 20 genes by row mean
 highest20.iv <- order(-rowMeans(selected))[1:20]
 
+#generate the hclustering... I suppose I could do this with hclust?
 h<-heatmap(as.matrix(selected[highest20.iv,]))
+
+#set up the layout for heatmap and scale.
 nf<-layout(matrix(data=c(1,1,1,2,0,0),nrow=3,ncol=2),widths=c(13,3),TRUE)
 layout.show(nf)
-mcm_image(data=as.matrix(selected[highest500.iv,])[h$rowInd,h$colInd],colors=brewer.pal(9,"Blues"),title="Gene expression in Mouse Tissues",zlim=c(0,130000),addgrid=F)
 
-
-#try with another data set...
-weather <- read.csv("H:/introR/data/weather/us_weather.csv",as.is=T,strip.white=T)
-fweather <- weather
-fweather[,7:18] <- weather[,7:18] * 9/5 + 32
-
-boston.iv <- fweather[,1]=="BOSTON"
-boston <- fweather[boston.iv,]
-rownames(boston)<-boston$Period
-
-nf<-layout(matrix(data=c(1,1,1,2,0,0),nrow=3,ncol=2),widths=c(13,3),TRUE)
-layout.show(nf)
-mcm_image(data=boston[,7:18],colors=colorRampPalette(rev(brewer.pal(9,"RdBu")))(100),zlim=c(0,80),addgrid=F)
-
-nf<-layout(matrix(data=c(1,1,1,2,0,0),nrow=3,ncol=2),widths=c(13,3),TRUE)
-mcm_image(data=head(boston[,7:18],n=10),colors=colorRampPalette(rev(brewer.pal(9,"RdBu")))(100),zlim=c(10,80),addgrid=F,cexRow=.8)
-
-x11()
-nf<-layout(matrix(data=c(1,1,1,2,0,0),nrow=3,ncol=2),widths=c(13,3),TRUE)
-mcm_image(data=tail(boston[,7:18],n=10),colors=colorRampPalette(rev(brewer.pal(9,"RdBu")))(100),zlim=c(10,80),addgrid=F,cexRow=.8)
+#plot the image.
+mcm_image(data=as.matrix(selected[highest20.iv,])[h$rowInd,h$colInd],colors=brewer.pal(9,"Blues"),title="Gene expression in Mouse Tissues",zlim=c(0,130000),addgrid=F)
 
