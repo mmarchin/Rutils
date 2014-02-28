@@ -122,17 +122,17 @@ fillvenn3<-function(names,values)
 
 fillvenn2<-function(names,values)
 {
-	par(mar=c(3, 3, 0, 0))
-	plot(-10,-10, ylim=c(0, 9), xlim=c(0, 9),axes=FALSE,type='n')
-	circle(x=3, y=6, r=3, col=rgb(1,0,0,.5))
-	circle(x=6, y=6, r=3, col=rgb(0,.5,.1,.5))
-	text(0.2,7.8,names[1], cex=1.5, col="black", srt=55)
-	text(8.7,7.8,names[2], cex=1.5, col="black", srt=-55)
+	par(mar=c(0,1,0,1))
+	plot(-4,-4, ylim=c(-4, 4), xlim=c(-4, 4),axes=FALSE,type='n')
+	circle(x=-1.5, y=0, r=2.8, col=rgb(1,0,0,.5))
+	circle(x=1.5, y=0, r=2.8, col=rgb(0,.5,.1,.5))
+	text(-3.1,2.6,names[1], cex=1, col="black", srt=30)
+	text(3.1,2.6,names[2], cex=1, col="black", srt=-30)
 
-	text(1.6,6,values[1], cex=2, col="black", srt=0) #1
-	text(7.3,6,values[2], cex=2, col="black", srt=0) #2
+	text(-2.6,0,values[1], cex=2, col="black", srt=0) #1
+	text(2.6,0,values[2], cex=2, col="black", srt=0) #2
 
-	text(4.5,6,values[3], cex=2, col="black", srt=0) #12
+	text(0,0,values[3], cex=2, col="black", srt=0) #12
 }
 
 

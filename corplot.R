@@ -52,9 +52,9 @@ layout(matrix(data=c(1,2), nrow=1, ncol=2), widths=c(4,1), heights=c(1,1))
  if( !is.null(title) ){
     title(main=title)
  }
-axis(BELOW<-1, at=1:length(xLabels), labels=xLabels, cex.axis=0.7, las=2)
+axis(BELOW<-1, at=1:length(xLabels), labels=xLabels, cex.axis=0.6, las=2)
  axis(LEFT <-2, at=1:length(yLabels), labels=yLabels, las= HORIZONTAL<-1,
- cex.axis=0.7)
+ cex.axis=0.6)
 
  # Color Scale
  par(mar = c(3,2.5,2.5,2))
@@ -95,7 +95,7 @@ corplot<-function(MA,targets)
 	return(cm);
 }
 
-corplotd<-function(d,names)
+corplotd<-function(d,names=colnames(d),title="Correlation Matrix")
 {
 	arrays <- ncol(d)
 	# define a matrix to hold the correlation data
@@ -106,13 +106,16 @@ corplotd<-function(d,names)
 	  for( i in 1:arrays ){
 	    thing1 <- d[,j]
 	    thing2 <- d[,i]
+		 thing1[!is.finite(thing1)]<-NA
+		 thing2[!is.finite(thing2)]<-NA
 	    cm[j,i] <- cor(thing1, thing2,use="complete.obs")
+		 cm[j,i]
 	  }
 	}
 	# label the correlation matrix with the info in targets
 	rownames(cm) <-names 
 	colnames(cm) <-names 
 	# get image plot function
-	myImagePlot(cm, title="Correlation Matrix")
+	myImagePlot(cm, title=title)
 	return(cm);
 }

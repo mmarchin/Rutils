@@ -1,8 +1,9 @@
 library(VennDiagram)
+library(RColorBrewer)
 
 #wrapper functions for VennDiagram functions.
 
-myvenn2<-function(mylist,filename,mn,cols=c("red","yellow"),lwd=2,alpha=.75,labelcol="black",fontfamily="sans",cat.dist=c(.04,.04),cat.pos=c(-21,15),main.pos=c(.5,.9),ext.text=F)
+myvenn2<-function(mylist,filename,mn,cols=c("red","dodgerblue"),lwd=2,alpha=.75,labelcol="black",fontfamily="sans",cat.dist=c(.04,.04),cat.pos=c(-21,15),main.pos=c(.5,.9),ext.text=F)
 {
 	venn.diagram(
 		x=mylist,
@@ -26,7 +27,7 @@ myvenn2<-function(mylist,filename,mn,cols=c("red","yellow"),lwd=2,alpha=.75,labe
 }
 
 
-myvenn3<-function(mylist,filename,mn,cols)
+myvenn3<-function(mylist,filename,mn,cols=brewer.pal(3,"Set1"))
 {
 	lwd<-2
 	alpha<-.5
@@ -50,7 +51,7 @@ myvenn3<-function(mylist,filename,mn,cols)
 	return(sectionlist);
 }
 
-myvenn4<-function(mylist,filename,mn,cols)
+myvenn4<-function(mylist,filename,mn,cols=brewer.pal(4,"Set1"))
 {
 	lwd<-2
 	alpha<-.6
